@@ -23,7 +23,7 @@ while True:
 
     else:
         # Solicitando o formato de download ao usuário
-        answer = input('format:\n1 - MP3\n2 - MP4\n> ')
+        answer = input('Formato:\n1 - MP3\n2 - MP4\n> ')
 
         if answer == '1':
              # Obtendo apenas o áudio do vídeo
