@@ -1,48 +1,29 @@
-# Importando as bibliotecas necessárias
-from pytube import YouTube
-from pytube.exceptions import RegexMatchError
 import os
 
-# Definindo a cor do console
-os.system('color a')
+from service.video_downloader import VideoDownloader
+from service.audio_downloader import AudioDownloader
+from service.video_with_resolution_downloader import VideoDownloaderWithResolution
+from ui.user_interface import UserInterface
 
-# Iniciando um loop infinito
-while True:
-    # Solicitando o link do vídeo ao usuário
-    url = input("Digite o link do vídeo: ")
-    os.system('cls')
+if __name__ == "__main__":
+    video_downloader = VideoDownloader()
+    audio_downloader = AudioDownloader()
+    video_with_resolution_downloader = VideoDownloaderWithResolution()
+    user_interface = UserInterface()
 
-    try:
-        # Obtendo os dados do vídeo
-        ys = YouTube(url)
-        print(f'Video: {ys.title}')
+    os.system('color a')
 
-    except RegexMatchError:
-        # Exceção caso o vídeo não seja encontrado
-        print("Video não encontrado, tente novamente.")
+    while True:
+        url = user_interface.get_user_input()
+        os.system('cls')
 
-    else:
-        # Solicitando o formato de download ao usuário
-        answer = input('Formato:\n1 - MP3\n2 - MP4\n> ')
+        if video_info := video_downloader.get_video_info(url):
+            user_interface.display_video_info(video_info)
+            download_format = user_interface.get_download_format()
 
-        if answer == '1':
-             # Obtendo apenas o áudio do vídeo
-            v = ys.streams.get_audio_only()
-            print("Baixando...")
-
-            # Baixando o arquivo de áudio e convertendo para mp3
-            out_file = v.download(output_path="videos")
-            base, ext = os.path.splitext(out_file)
-            new_file = f'{base}.mp3'
-            os.rename(out_file, new_file)
-            print("Download concluído.")
-
-        elif answer == '2':
-            # Obtendo o vídeo com a maior resolução
-            v = ys.streams.get_highest_resolution()
-            print('Baixando...')
-            v.download(output_path="videos")
-            print('Download concluído.')
-        else:
-            # Mensagem de erro caso o usuário digite uma opção inválida
-            print("Opção inválida, você precisa digitar '1' para mp3 ou '2' para mp4")
+            if download_format == '1':
+                audio_downloader.download_audio(video_info)
+            elif download_format == '2':
+                video_with_resolution_downloader.download_video(video_info)
+            else:
+                user_interface.display_invalid_option_message()
