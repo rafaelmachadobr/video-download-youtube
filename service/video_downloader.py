@@ -24,5 +24,5 @@ class VideoDownloader:
         try:
             return YouTube(url)
         except RegexMatchError:
-            print("\nVídeo não encontrado, tente novamente.")
+            print("Vídeo não encontrado, tente novamente.")
             return None
