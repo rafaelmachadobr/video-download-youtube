@@ -71,7 +71,7 @@ def main():
 
     except KeyboardInterrupt:
         logger.info("Aplicação interrompida pelo usuário")
-        print("\n\nAté logo! 👋")
+        print("\n\nAté logo!")
     except Exception as e:
         logger.exception("Erro fatal na aplicação")
         print(f"\n❌ Erro fatal: {e}")
