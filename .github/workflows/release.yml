@@ -32,7 +32,7 @@ jobs:
           pytest tests/ -v --cov=src --cov-report=term
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           body: |
             ## 🎉 Changes in this Release
