@@ -24,8 +24,7 @@ class SQLiteVideoRepository(VideoRepository):
         """Inicializa o banco de dados criando a tabela se não existir."""
         try:
             with sqlite3.connect(self.db_path) as conn:
-                conn.execute(
-                    """
+                conn.execute("""
                     CREATE TABLE IF NOT EXISTS videos (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         url TEXT NOT NULL,
@@ -34,8 +33,7 @@ class SQLiteVideoRepository(VideoRepository):
                         downloaded_at TEXT NOT NULL,
                         UNIQUE(url)
                     )
-                """
-                )
+                """)
                 conn.commit()
                 logger.info(f"Banco de dados inicializado: {self.db_path}")
         except sqlite3.Error as e:
