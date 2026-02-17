@@ -178,7 +178,7 @@ O projeto utiliza **GitHub Actions** para automação completa:
 - ✅ Executa semanalmente e em PRs
 - ✅ Detecta vulnerabilidades automaticamente
 
-## �🛡️ Princípios SOLID Implementados
+## 🛡️ Princípios SOLID Implementados
 
 ### Single Responsibility Principle (SRP)
 
